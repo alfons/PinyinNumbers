@@ -94,7 +94,7 @@ function numberToPinyin(number) {
     if (tenThousands > 0) {
         const tenThousandPart = convertGroup(tenThousands);
         const lastTenThousand = tenThousandPart[tenThousandPart.length - 1];
-        if (billions > 0 && (tenThousands === 0 || tenThousands < 10)) {
+        if (billions > 0 && tenThousands < 1000) {
             parts.push(["líng"]);
         }
         if (tenThousands >= 10) {
@@ -102,14 +102,18 @@ function numberToPinyin(number) {
         } else {
             parts.push([...tenThousandPart.slice(0, -1), lastTenThousand + units[10000]]);
         }
-    }
-    if (thousands > 0) {
-        if (tenThousands > 0 && thousands < 1000) {
+        // Add líng if thousands is present but lacks a thousands unit (e.g., 40507)
+        if (thousands > 0 && thousands < 1000) {
             parts.push(["líng"]);
         }
+    } else if (billions > 0 && thousands > 0) {
+        // Add líng if tenThousands is 0 but thousands is present
+        parts.push(["líng"]);
+    }
+    if (thousands > 0) {
         const thousandsPart = convertGroup(thousands);
         parts.push(thousandsPart);
-    } else if (number >= 10000 && thousands === 0 && tenThousands > 0 && number % 10000 === 0) {
+    } else if (number >= 10000 && tenThousands > 0 && thousands === 0) {
         parts.push([]);
     }
 
@@ -163,7 +167,8 @@ function testNumberToPinyin() {
         [12, "shí'èr"],
         [1200000000, "shí'èr yì"],
         [5007, "wǔqiān líng qī"],
-        [10006, "yīwàn líng liù"]
+        [500000012, "wǔyì líng shí'èr"],
+        [501000000, "wǔyì líng yībǎi wàn"],
     ];
     console.log("Running tests for numberToPinyin...");
     let passed = 0;
@@ -189,6 +194,11 @@ function testNumberToPinyin() {
 }
 
 // Run the tests
-//testNumberToPinyin();
-//const taxCollectedFromCitizens = numberToPinyin(4728361509842);
-//console.log(taxCollectedFromCitizens);
+testNumberToPinyin();
+
+const numbers = [1,501000000];
+for (const num of numbers) {
+    console.log(`${num} ${numberToPinyin(num)}`);
+}
+const num = numberToPinyin(1000072356);
+console.log(num);
