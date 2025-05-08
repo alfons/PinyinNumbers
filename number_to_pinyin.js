@@ -1,4 +1,5 @@
 // Transcribe numbers to Hànyǔ Pīnyīn, by Alfons Grabher, alfonsgrabher.com
+//
 // GB/T 16159-2012
 // 6.1.5.2 十一到九十九之间的整数，连写。例如：
 // 6.1.5.2 Whole numbers from eleven to ninety-nine, written without spaces. For example:
@@ -6,15 +7,17 @@
 // 6.1.5.3 “百”、“千”、“万”、“亿”与前面的个位数，连写；“万”、“亿”与前面的十位以上的数，分写，当前面的数词为“十”时，也可连写。例如：
 // 6.1.5.3 ‘Hundred’, ‘thousand’, ‘ten thousand’, and ‘hundred million’ are written together with the digit right before them. But ‘ten thousand’ and ‘hundred million’ are written separately from the number before them if that number is more than one digit — unless it’s ‘ten’, in which case either way is fine. For example:
 // shí yì líng qīwàn èrqiān sānbǎi wǔshíliù / shíyì líng qīwàn èrqiān sānbǎi wǔshíliù (十亿零七万二千三百五十六) liùshísān yì qīqiān èrbǎi liùshíbā wàn sìqiān líng jiǔshíwǔ (六十三亿七千二百六十八万四千零九十五)
-// usage example: 
+//
+// Usage example: 
 // const taxCollectedFromCitizens = numberToPinyin(4728361509842);
 // console.log(taxCollectedFromCitizens);
 // sìwàn qīqiān èrbǎi bāshísān yì liùqiān yībǎi wǔshí wàn jiǔqiān bābǎi sìshí'èr
 
 function numberToPinyin(number) {
-    if (!Number.isInteger(number) || number < 0) return "Invalid input: Please provide a non-negative integer.";
+    if (!Number.isInteger(number)) return "Invalid input: Please provide an integer.";
+    if (Math.abs(number) > 9999999999999) return "Number too large: Please provide a number up to 9,999,999,999,999.";
+
     if (number === 0) return "líng";
-    if (number > 9999999999999) return "Number too large: Please provide a number up to 9,999,999,999,999.";
 
     const digits = { 1: "yī", 2: "èr", 3: "sān", 4: "sì", 5: "wǔ", 6: "liù", 7: "qī", 8: "bā", 9: "jiǔ", 0: "líng" };
     const units = { 10: "shí", 100: "bǎi", 1000: "qiān", 10000: "wàn", 100000000: "yì" };
@@ -35,7 +38,7 @@ function numberToPinyin(number) {
     function convertGroup(num) {
         if (num === 0) return [];
         const result = [];
-        const scales = [10000, 1000, 100, 10, 1]; // Include wàn
+        const scales = [10000, 1000, 100, 10, 1];
         let remaining = num;
         let hasNonZero = false;
         let inZeroSequence = false;
@@ -70,6 +73,9 @@ function numberToPinyin(number) {
         }
         return result;
     }
+
+    const isNegative = number < 0;
+    number = Math.abs(number); // Work with absolute value
 
     const billions = Math.floor(number / 100000000);
     const tenThousands = Math.floor((number % 100000000) / 10000);
@@ -114,9 +120,13 @@ function numberToPinyin(number) {
             result.push(group[j]);
         }
     }
-    return result.join(" ").trim();
-}
 
+    let output = result.join(" ").trim();
+    if (isNegative) {
+        output = needsApostrophe("fù", output) ? `fù'${output}` : `fù ${output}`;
+    }
+    return output;
+}
 
 function testNumberToPinyin() {
     // Test function for valuePairs
@@ -139,7 +149,7 @@ function testNumberToPinyin() {
         [15, "shíwǔ"],
         [33, "sānshísān"],
         [99, "jiǔshíjiǔ"],
-        [8, "bā"],
+        [-8, "fù bā"],
         [88, "bāshíbā"],
         [507, "wǔbǎi líng qī"],
         [800, "bābǎi"],
