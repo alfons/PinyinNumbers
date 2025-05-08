@@ -12,9 +12,15 @@ function hanziToNumber(hanzi) {
         '卅': 30, '百': 100, '千': 1000, '萬': 10000, '万': 10000,
         '億': 100000000, '亿': 100000000, '兆': 1000000000000
     };
+    const groupClassifiers = ['十', '拾', '廿', '卅', '百', '千', '萬', '万', '億', '亿', '兆'];
 
     if (!hanzi || hanzi.trim() === '') {
         return false;
+    }
+
+    // Add '一' if hanzi starts with a group classifier
+    if (groupClassifiers.includes(hanzi[0])) {
+        hanzi = '一' + hanzi;
     }
 
     let result = 0n;
@@ -81,8 +87,9 @@ function testHanziToNumber() {
         ['一億二千三百四十五萬', 123450000],
         ['一兆二千三百四十五億', 1234500000000],
         ['零', 0],
+        ['十', 10],
         ['一十', 10],
-        ['二十', 20],
+        ['十亿', 1000000000],
         ['三百零二', 302],
         ['三千零三', 3003],
         ['四萬零四十', 40040],
@@ -119,4 +126,6 @@ function testHanziToNumber() {
 }
 
 //testHanziToNumber();
+//console.log(hanziToNumber('十亿零七万二千三百五十六'));
 //console.log(hanziToNumber('六十三亿七千二百六十八万四千零九十五'));
+//console.log(hanziToNumber('八亿八千八百八十八万八千八百八十八'));
