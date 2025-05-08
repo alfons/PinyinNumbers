@@ -1,3 +1,14 @@
+// Transcribe numbers from integer to spoken English, by Alfons Grabher, alfonsgrabher.com
+//
+// Usage example:
+//
+// const spokenEnglish = numberToEnglish(12345);
+// console.log(spokenEnglish);
+// twelve thousand three hundred forty-five
+//
+// console.log(capitalizeFirstLetter(spokenEnglish));
+// Twelve thousand three hundred forty-five
+
 const numberToEnglish = (num) => {
     if (!Number.isInteger(num)) {
       throw new TypeError("Input must be an integer.");
@@ -85,3 +96,6 @@ function capitalizeFirstLetter(word) {
     if (!word) return '';
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+//const spokenEnglish = numberToEnglish(12345);
+//console.log(spokenEnglish);
