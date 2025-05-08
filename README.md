@@ -25,7 +25,7 @@ shí yì líng qīwàn èrqiān sānbǎi wǔshíliù / shíyì líng qīwàn èr
 ---
 
 # Usage Examples
-Transcribe a large number:
+Transcribe a large number from large integer to Hànyǔ Pīnyīn:
 ```js
 const taxCollectedFromCitizens = numberToPinyin(4728361509842);
 console.log(taxCollectedFromCitizens);
@@ -34,7 +34,7 @@ Output:
 ```
 sìwàn qīqiān èrbǎi bāshísān yì liùqiān yībǎi wǔshí wàn jiǔqiān bābǎi sìshí'èr
 ```
-Transcribe a small number:
+Transcribe a small number from integer to Hànyǔ Pīnyīn:
 ```js
 const monthlyIncome = numberToPinyin(1855);
 console.log(monthlyIncome);
@@ -43,10 +43,22 @@ Output:
 ```
 yīqiān bābǎi wǔshíwǔ
 ```
-# Test the output
+Transcribe a large number from Hànzi to integer:
+
+```js
+const whatIsThisLargeNumber = hanziToNumber('六十三亿七千二百六十八万四千零九十五');
+console.log(whatIsThisLargeNumber);
+```
+Output:
+```
+6372684095
+```
+
+# Tests
 Example numbers from the book Yīn Bǐnyōng - Chinese Romanization Pronunciation and Orthography
 
-Run the function against an array of various numbers
+Test number (integer) to Hànyǔ Pīnyīn:
+
 ```js
 testNumberToPinyin();
 ```
@@ -88,5 +100,36 @@ Test 32: 5007 → wǔqiān líng qī (PASS)
 Test 33: 10006 → yīwàn líng liù (PASS)
 
 Test Summary: 33 passed, 0 failed
+All tests passed! 🎉
+```
+
+Test Hànzi to number (integer):
+
+```js
+testHanziToNumber();
+```
+Output:
+```
+Running tests for hanziToNumber...
+Test 1: "四十三" → 43 (PASS)
+Test 2: "一百二十三" → 123 (PASS)
+Test 3: "一萬二千三百四十五" → 12345 (PASS)
+Test 4: "一億二千三百四十五萬" → 123450000 (PASS)
+Test 5: "一兆二千三百四十五億" → 1234500000000 (PASS)
+Test 6: "零" → 0 (PASS)
+Test 7: "一十" → 10 (PASS)
+Test 8: "二十" → 20 (PASS)
+Test 9: "三百零二" → 302 (PASS)
+Test 10: "三千零三" → 3003 (PASS)
+Test 11: "四萬零四十" → 40040 (PASS)
+Test 12: "五十萬零五" → 500005 (PASS)
+Test 13: "六百萬" → 6000000 (PASS)
+Test 14: "七千萬" → 70000000 (PASS)
+Test 15: "八億" → 800000000 (PASS)
+Test 16: "九千億" → 900000000000 (PASS)
+Test 17: "一兆" → 1000000000000 (PASS)
+Test 18: "六十三亿七千二百六十八万四千零九十五" → 6372684095 (PASS)
+
+Test Summary: 18 passed, 0 failed
 All tests passed! 🎉
 ```
