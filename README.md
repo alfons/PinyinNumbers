@@ -24,7 +24,7 @@ Whole numbers from eleven to ninety-nine, are written without spaces. For exampl
 
 ### 6.5.2 “一”、“不”一般标原调，不标变调。
  
-Write yī and bù with their original tone-marks.
+Write yī and bù with their original tone-marks. For example:
 
 - 一架 	yī jià
 - 一天 	yī tiān
