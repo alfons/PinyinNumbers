@@ -5,8 +5,7 @@ Transcribe numbers to Hànyǔ Pīnyīn, by Alfons Grabher — [alfonsgrabher.com
 
 Compliant with the rules of **GB/T 16159-2012** 中华人民共和国国家标准, National Standards of the People's Republic of China, 汉语拼音正词法基本规则, Basic rules of the Chinese phonetic alphabet orthography  
 
-### 6.1.5.2  
-十一到九十九之间的整数，连写。例如：
+### 6.1.5.2 十一到九十九之间的整数，连写。
 
 Whole numbers from eleven to ninety-nine, are written without spaces. For example:
 
@@ -15,9 +14,7 @@ Whole numbers from eleven to ninety-nine, are written without spaces. For exampl
 - sānshísān (三十三) 
 - jiǔshíjiǔ (九十九)
 
-### 6.1.5.3
-
-“百”、“千”、“万”、“亿”与前面的个位数，连写；“万”、“亿”与前面的十位以上的数，分写，当前面的数词为“十”时，也可连写。例如：
+### 6.1.5.3 “百”、“千”、“万”、“亿”与前面的个位数，连写；“万”、“亿”与前面的十位以上的数，分写，当前面的数词为“十”时，也可连写。
 
 ‘Hundred’, ‘thousand’, ‘ten thousand’, and ‘hundred million’ are written together with the digit right before them. But ‘ten thousand’ and ‘hundred million’ are written separately from the number before them if that number is more than one digit — unless it’s ‘ten’, in which case either way is fine. For example:
 
@@ -25,9 +22,7 @@ Whole numbers from eleven to ninety-nine, are written without spaces. For exampl
 - shíyì líng qīwàn èrqiān sānbǎi wǔshíliù (十亿零七万二千三百五十六)
 - liùshísān yì qīqiān èrbǎi liùshíbā wàn sìqiān líng jiǔshíwǔ (六十三亿七千二百六十八万四千零九十五)
 
-### 6.5.2
-
-“一”、“不”一般标原调，不标变调。
+### 6.5.2 “一”、“不”一般标原调，不标变调。
  
 Write yī and bù with their original tone-marks.
 
@@ -42,48 +37,37 @@ Write yī and bù with their original tone-marks.
 # Usage Examples
 Transcribe a large number (integer) to Hànyǔ Pīnyīn:
 ```js
-const taxCollectedFromCitizens = numberToPinyin(4728361509842);
-console.log(taxCollectedFromCitizens);
-```
-```
-Output: sìwàn qīqiān èrbǎi bāshísān yì liùqiān yībǎi wǔshí wàn jiǔqiān bābǎi sìshí'èr
+numberToPinyin(4728361509842);
+
+// sìwàn qīqiān èrbǎi bāshísān yì liùqiān yībǎi wǔshí wàn jiǔqiān bābǎi sìshí'èr
 ```
 Transcribe a small number (integer) to Hànyǔ Pīnyīn:
 ```js
-const monthlyIncome = numberToPinyin(1855);
-console.log(monthlyIncome);
-```
-```
-Output: yīqiān bābǎi wǔshíwǔ
+numberToPinyin(1855);
+
+// yīqiān bābǎi wǔshíwǔ
 ```
 Transcribe a large number from Hànzi to integer:
 ```js
-const whatIsThisLargeNumber = hanziToNumber('六十三亿七千二百六十八万四千零九十五');
-console.log(whatIsThisLargeNumber);
-```
-```
-Output: 6372684095
+hanziToNumber('六十三亿七千二百六十八万四千零九十五');
+
+// 6372684095
 ```
 Transcribe a number (integer) into words in English:
 ```js
-const num = numberToEnglish(12345);
-console.log(num);
-```
-```
-Output: twelve thousand three hundred forty-five
+numberToEnglish(12345);
+
+// twelve thousand three hundred forty-five
 ```
 ```js
-console.log(capitalizeFirstLetter(num));
-```
-```
-Output: Twelve thousand three hundred forty-five
+capitalizeFirstLetter(numberToEnglish(12345));
+
+// Twelve thousand three hundred forty-five
 ```
 ```js
-const num = numberToEnglish(-10);
-console.log(capitalizeFirstLetter(num));
-```
-```
-Output: Minus ten
+numberToEnglish(-10);
+
+// minus ten
 ```
 
 # Tests
