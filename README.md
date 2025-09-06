@@ -149,3 +149,97 @@ Test 18: "六十三亿七千二百六十八万四千零九十五" → 6372684095
 Test Summary: 18 passed, 0 failed
 All tests passed! 🎉
 ```
+## HanziPinyinNumberConverter
+
+A utility class for converting between Chinese number characters (汉字), integers, Pinyin, and English words.  
+
+### Functions
+
+#### `hanziToNumber(hanzi)`
+Convert Chinese numerals (汉字) into an integer.  
+- Returns `false` if the input is invalid.  
+
+```js
+converter.hanziToNumber("三百二十五"); // 325
+converter.hanziToNumber("亿"); // 100000000
+````
+
+#### `isHanziNumber(hanzi)`
+
+Check if a string consists only of valid Chinese number characters.
+
+* Returns `true`/`false`.
+* Example:
+
+```js
+converter.isHanziNumber("三十五"); // true
+converter.isHanziNumber("三A五");   // false
+```
+
+#### `numberToEnglish(num)`
+
+Convert an integer into its English word form.
+
+* Example:
+
+```js
+converter.numberToEnglish(2024); // "two thousand twenty-four"
+converter.numberToEnglish(-15);  // "minus fifteen"
+```
+
+#### `capitalizeFirstLetter(word)`
+
+Capitalize the first letter of a string.
+
+* Example:
+
+```js
+converter.capitalizeFirstLetter("hello"); // "Hello"
+```
+
+#### `numberToPinyin(number, originalHanzi = '')`
+
+Convert an integer into Mandarin Pinyin (with tone marks).
+
+* Handles large numbers up to 兆 (10¹²).
+* By default, uses `èr` for "2".
+* If `originalHanzi` is provided, it respects cases where "两" (`liǎng`) is used instead of "二" (`èr`).
+* Example:
+
+```js
+converter.numberToPinyin(101); 
+// "yībǎi líng yī" (default, no hanzi passed)
+
+converter.numberToPinyin(2002); 
+// "èrqiān líng èr" (default, uses 二)
+
+converter.numberToPinyin(2002, "两千零二"); 
+// "liǎngqiān líng èr" (respects 两 in original hanzi)
+```
+
+#### `hanziToPinyin(hanzi)`
+
+Directly convert Chinese numerals (汉字) into Pinyin.
+
+* Combines `hanziToNumber` and `numberToPinyin`.
+* Example:
+
+```js
+converter.hanziToPinyin("二千零二十四"); 
+// "èrqiān líng èrshísì"
+
+converter.hanziToPinyin("两千零二十四"); 
+// "liǎngqiān líng èrshísì"
+```
+
+---
+
+### Quick Start
+
+```js
+const converter = new HanziPinyinNumberConverter();
+
+converter.hanziToNumber("三千五百二十一"); // 3521
+converter.numberToEnglish(10001);          // "ten thousand one"
+converter.hanziToPinyin("九十九");         // "jiǔshíjiǔ"
+```
